@@ -18,8 +18,7 @@ initmy_url = "https://kyfw.12306.cn/otn/index/initMy12306"
 order = 0
 dtime = "2017-01-21"
 
-pa = u"郭远逵"
-# pa = u"周青"
+
 
 def login():
     b.find_by_text(u"登录").click()

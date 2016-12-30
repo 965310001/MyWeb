@@ -9,11 +9,7 @@ ends = u"%u5409%u5B89%2CVAG"
 #北京
 # ends = u"%u5317%u4EAC%2CBJP"
 
-username="15949629529"
-passwd="kui123456kui"
 
-# username="zhouqing19931214"
-# passwd="zq15216235198"
 
 ticket_url = "https://kyfw.12306.cn/otn/leftTicket/init"
 login_url = "https://kyfw.12306.cn/otn/login/init"
@@ -38,55 +34,6 @@ def login():
             sleep(1)
         else:
             break
-
-def goWhild():
-    try:
-        print u"购票页面..."
-        # 跳回购票页面
-        b.visit(ticket_url)
-
-        # 加载查询信息
-        b.cookies.add({"_jc_save_fromStation": starts})
-        b.cookies.add({"_jc_save_toStation": ends})
-        b.cookies.add({"_jc_save_fromDate": dtime})
-        b.reload()
-
-        sleep(2)
-
-        count = 0
-        # 循环点击预订
-        if order != 0:
-            while b.url == ticket_url:
-                b.find_by_text(u"查询").click()
-                count += 1
-                print u"循环点击查询... 第 %s 次" % count
-                sleep(3)
-                try:
-                    b.find_by_text(u"预订")[order - 1].click()
-                except:
-                    print u"还没开始预订"
-                    continue
-        else:
-            while b.url == ticket_url:
-                b.find_by_text(u"查询").click()
-                count += 1
-                print u"循环点击查询... 第 %s 次" % count
-                sleep(3)
-                try:
-                    for i in b.find_by_text(u"预订"):
-                        i.click()
-                except:
-                    print u"还没开始预订"
-                    continue
-        sleep(1)
-        b.find_by_text(pa)[1].click()
-        sleep(5)
-        b.find_by_id(u"submitOrder_id").click()
-        b.find_by_id(u"qr_submit_id").click()
-        print  u"能做的都做了.....不再对浏览器进行任何操作"
-    except Exception as e:
-        goWhild()
-        print(traceback.print_exc())
 
 def huoche():
     global b
@@ -116,10 +63,13 @@ def huoche():
         # 循环点击预订
         if order != 0:
             while b.url == ticket_url:
+                # if b.find_by_id(u"yxtrain_loading").style.display=="none":
+                #     # pass
+
                 b.find_by_text(u"查询").click()
                 count +=1
                 print u"循环点击查询... 第 %s 次" % count
-                sleep(1)
+                sleep(5)
                 try:
                     b.find_by_text(u"预订")[order - 1]
                     b.find_by_id(r"YW_65000K422304")
@@ -129,13 +79,20 @@ def huoche():
                     continue
         else:
             while b.url == ticket_url:
+                # display= b.find_element_by_css_selector(u"yxtrain_loading")
+                #     # pass
+                #     b.find_by_text(u"查询").click()
                 b.find_by_text(u"查询").click()
                 count += 1
                 print u"循环点击查询... 第 %s 次" % count
-                sleep(1)
+                sleep(5)
                 try:
                     for i in b.find_by_text(u"预订"):
-                        i.click()
+                        # i.click()
+                        pass
+                    for i in b.find_by_text(u"07:40"):
+                        print (i)
+                        
                 except:
                     print u"还没开始预订"
                     continue
@@ -152,7 +109,7 @@ def huoche():
 
 if __name__ == "__main__":
 
-    for i in range(11):
-        print ((i + 52.8)*5 - 3.9343) / 0.5 - i * 10
+    # for i in range(11):
+        # print ((i + 52.8)*5 - 3.9343) / 0.5 - i * 10
 
-    # huoche()
+    huoche()
